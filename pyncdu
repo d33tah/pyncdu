@@ -23,7 +23,9 @@ class SizeThread(threading.Thread):
                 self.files_scanned += 1
                 fp = os.path.join(dirpath, f)
                 try:
-                    self.total_size += os.path.getsize(fp)
+                    s = os.stat(fp)
+                    size = s.st_blocks * 512
+                    self.total_size += size
                 except OSError:
                     continue
 
